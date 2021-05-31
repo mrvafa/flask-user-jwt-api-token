@@ -49,7 +49,7 @@ This is sample JWS API for flask framework.
 ## TODO
 
 - [X] Start and set flask.
-- [ ] Create user model.
+- [X] Create user model.
 - [ ] Create user views.
 - [ ] Add test.
 - [ ] Add password, email and username validator.
