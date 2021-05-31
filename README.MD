@@ -50,7 +50,7 @@ This is sample JWS API for flask framework.
 
 - [X] Start and set flask.
 - [X] Create user model.
-- [ ] Create user views.
+- [X] Create user views and urls.
 - [ ] Add test.
 - [ ] Add password, email and username validator.
 - [ ] Add fields like birthday, last_login, image profile and phone_number.
