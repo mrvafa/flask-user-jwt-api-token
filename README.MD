@@ -38,7 +38,7 @@ This is sample JWS API for flask framework.
 
   |METHOD|             url                 | required fields|description|
   |------|---------------------------------|----------------|---| 
-  | POST | http://127.0.0.1:5000/register  | username, email, password| Ccreate user| 
+  | POST | http://127.0.0.1:5000/register  | username, email, password| Create user| 
   | POST | http://127.0.0.1:5000/login     | username, password| Login via username and password|
   | POST | http://127.0.0.1:5000/login     | email, password| Login via email and password|
   | GET  | http://127.0.0.1:5000/profile/<user-id> | None | Get user info |
