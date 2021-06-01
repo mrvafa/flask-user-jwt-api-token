@@ -103,12 +103,10 @@ class UserProfileAPI(MethodView):
         user = User.query.filter_by(id=user_id).first()
         if user:
             response_object = {
-                'profile': {
-                    'user_id': user.id,
-                    'username': user.username,
-                    'email': user.email,
-                    'registered_on': user.registered_on
-                }
+                'user_id': user.id,
+                'username': user.username,
+                'email': user.email,
+                'registered_on': user.registered_on
             }
             return make_response(jsonify(response_object)), 200
         return make_response(jsonify({"error": "page not found"})), 404
