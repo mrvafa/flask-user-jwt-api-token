@@ -23,7 +23,6 @@ class User(db.Model):
             password, app.config.get('BCRYPT_LOG_ROUNDS')
         ).decode()
         self.registered_on = datetime.now()
-        self.token = binascii.hexlify(os.urandom(20)).decode()
 
     def encode_auth_token(self):
         try:
