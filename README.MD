@@ -7,7 +7,7 @@ This is sample JWS API for flask framework.
 1. [Installation](#installation)
 2. [Usage examples](#usage-examples)
 3. [File Structure](#file-structure)
-4. [test](#test)
+4. [Tests](#tests)
 5. [TODO](#todo)
 
 <a name="installation"></a>
@@ -86,6 +86,7 @@ Task1
 <a name="tests"></a>
 
 ## Tests
+
 > To run flask tests run `./manage.py test`
 
 <a name="todo"></a>
