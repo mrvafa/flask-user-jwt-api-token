@@ -65,6 +65,7 @@ Task1
     │        └── views.py     # API Views
     │
     ├── README.ME             # file to help setup
+    ├── LICENCE               # licenece file (MIT)
     ├── db.sqlite3            # Project database
     ├── db.sqlite3_test       # Test database
     ├── .env                  # Private varables 
