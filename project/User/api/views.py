@@ -132,25 +132,26 @@ class UserProfileAPI(MethodView):
                 email = post_data.get('email') if post_data and 'email' in post_data else None
                 errors = []
                 if email:
-                    if User.query.filter_by(email=email).first() and user.email == email:
+                    if (User.query.filter_by(email=email).first() and user.email == email) \
+                            or not User.query.filter_by(email=email).first():
                         user.email = email
                     else:
                         errors.append('email has taken')
                 if username:
-                    if User.query.filter_by(username=username).first() and user.username == username:
+                    if (User.query.filter_by(username=username).first() and user.username == username) \
+                            or not User.query.filter_by(username=username).first():
                         user.username = username
                     else:
                         errors.append('username has taken')
                 if errors:
                     return make_response(jsonify({"errors": errors})), 400
                 else:
+                    db.session.commit()
                     response_object = {
-                        'profile': {
-                            'user_id': user.id,
-                            'username': user.username,
-                            'email': user.email,
-                            'registered_on': user.registered_on
-                        }
+                        'user_id': user.id,
+                        'username': user.username,
+                        'email': user.email,
+                        'registered_on': user.registered_on
                     }
                     return make_response(jsonify(response_object)), 202
             response_object = {
