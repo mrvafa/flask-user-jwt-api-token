@@ -1,5 +1,6 @@
 from flask import request, make_response, jsonify
 from flask.views import MethodView
+from werkzeug.routing import ValidationError
 
 from project import db, bcrypt
 from project.User.models import User
@@ -20,19 +21,22 @@ class RegisterAPI(MethodView):
         user_username = User.query.filter_by(username=username).first()
         user_email = User.query.filter_by(email=email).first()
         if not user_username and not user_email:
-            user = User(
-                username=username,
-                email=email,
-                password=password
-            )
+            try:
+                User.create(
+                    username=username,
+                    email=email,
+                    password=password
+                )
+                response_object = {
+                    'success': 'User has been created. now try to login.'
+                }
+                return make_response(jsonify(response_object)), 201
+            except ValidationError as e:
+                response_object = {
+                    'error': f'{e}'
+                }
+                return make_response(jsonify(response_object)), 400
 
-            db.session.add(user)
-            db.session.commit()
-
-            response_object = {
-                'success': 'User has been created. now try to login.'
-            }
-            return make_response(jsonify(response_object)), 201
         else:
             response_object = {
                 'error': 'User already exists. Please Log in.',
@@ -72,7 +76,7 @@ class LoginAPI(MethodView):
                     user.password, password
             ):
                 response_object = {
-                    'token': user.encode_auth_token(),
+                    'token': user.encode_auth_token().decode(),
                 }
                 return make_response(jsonify(response_object)), 200
 
