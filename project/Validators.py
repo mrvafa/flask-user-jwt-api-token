@@ -2,7 +2,7 @@ import re
 
 
 def username_validation(username):
-    return pattern_validation(username, r'.*')
+    return pattern_validation(username, r'^(?![-._])(?!.*[_.-]{2})[\w.-]{4,30}(?<![-._])$')
 
 
 def password_validation(password):
