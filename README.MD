@@ -76,13 +76,6 @@ Task1
     └── env                   # Python enviroment
 ```
 
-- [X] Start and set flask.
-- [X] Create user model.
-- [X] Create user views and urls.
-- [X] Add test.
-- [X] Add password, email and username validator.
-- [ ] Add fields like birthday, last_login, image profile and phone_number.
-
 <a name="tests"></a>
 
 ## Tests
