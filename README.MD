@@ -1,4 +1,4 @@
-# Blog API
+# Flask User JWT API Token
 
 This is sample JWS API for flask framework.
 
