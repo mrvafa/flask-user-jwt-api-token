@@ -3,8 +3,10 @@ import os
 from datetime import datetime, timedelta
 
 import jwt
+from werkzeug.routing import ValidationError
 
 from project import db, bcrypt, app
+from project.Validators import username_validation, password_validation, email_validation
 
 
 class User(db.Model):
@@ -47,3 +49,30 @@ class User(db.Model):
             return 'Signature expired. Please log in again.'
         except jwt.InvalidTokenError:
             return 'Invalid token. Please log in again.'
+
+    @staticmethod
+    def create(**kwargs):
+        User.check_validation(**kwargs)
+        user = User(**kwargs)
+        db.session.add(user)
+        db.session.commit()
+        return user
+
+    @staticmethod
+    def check_validation(**kwargs):
+        errors = []
+        if 'password' not in kwargs:
+            errors.append('Password is required!')
+        elif not password_validation(kwargs['password']):
+            errors.append('Minimum eight characters, at least one letter, one number and one special character!')
+        if 'email' not in kwargs:
+            errors.append('Email is required!')
+        elif not email_validation(kwargs['email']):
+            errors.append('Email address is not valid!')
+        if 'username' not in kwargs:
+            errors.append('Username is required!')
+        elif not username_validation(kwargs['username']):
+            errors.append('Invalid username (username length should be between 4, 30, not . _ at first and combination '
+                          'of characters)')
+        if errors:
+            raise ValidationError(errors)

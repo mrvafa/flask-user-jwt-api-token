@@ -1,7 +1,7 @@
 import os
 from pathlib import Path
 
-basedir = Path(__file__).resolve()
+basedir = Path(__file__).resolve().parent
 sqlite_local_base = 'sqlite:///../'
 database_name = 'db.sqlite3'
 
