@@ -55,7 +55,7 @@ class LoginAPI(MethodView):
                 'error': 'Password and email or username is required.',
             }
             return make_response(jsonify(response_object)), 400
-        if username:
+        if username and not email:
             user = User.query.filter_by(
                 username=username
             ).first()
@@ -68,7 +68,7 @@ class LoginAPI(MethodView):
                 }
                 return make_response(jsonify(response_object)), 200
 
-        if email:
+        if email and not username:
             user = User.query.filter_by(
                 email=email
             ).first()
@@ -79,6 +79,18 @@ class LoginAPI(MethodView):
                     'token': user.encode_auth_token().decode(),
                 }
                 return make_response(jsonify(response_object)), 200
+
+        if email and username:
+            user = User.query.filter_by(username=username).first()
+            if user and User.query.filter_by(email=email).first() == user:
+                if user and bcrypt.check_password_hash(
+                        user.password, password
+                ):
+                    token = user.encode_auth_token()
+                    response_object = {
+                        'token': token.decode()
+                    }
+                    return make_response(jsonify(response_object)), 200
 
         response_object = {
             'error': 'combination of User/Password is wrong'
