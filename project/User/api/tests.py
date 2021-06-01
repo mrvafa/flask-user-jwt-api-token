@@ -170,14 +170,13 @@ class TestGetUserProfile(TestCase):
         username = User.query.filter_by(id=2).first().username
         email = User.query.filter_by(id=2).first().email
         user_id = User.query.filter_by(id=2).first().id
-        print(respond.json)
         self.assertEqual(username, respond.json['username'])
         self.assertEqual(email, respond.json['email'])
         self.assertEqual(user_id, respond.json['user_id'])
 
     def test_get_ok_profile_not_contain_password(self):
         respond = self.client.get(url_for('user.profile_api', user_id=1), )
-        self.assertFalse('username' not in respond.json)
+        self.assertFalse('password' in respond.json)
 
     def create_app(self):
         app.config.from_object('config.TestingConfig')
@@ -301,6 +300,10 @@ class TestEditUserProfile(TestCase):
         )
 
         self.assertEqual(400, respond.status_code)
+
+    def test_get_wrong_profile_not_authorized(self):
+        respond = self.client.put(url_for('user.profile_api'), )
+        self.assertEqual(401, respond.status_code)
 
     def create_app(self):
         app.config.from_object('config.TestingConfig')
