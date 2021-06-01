@@ -6,7 +6,9 @@ This is sample JWS API for flask framework.
 
 1. [Installation](#installation)
 2. [Usage examples](#usage-examples)
-3. [TODO](#todo)
+3. [File Structure](#file-structure)
+4. [test](#test)
+5. [TODO](#todo)
 
 <a name="installation"></a>
 
@@ -35,14 +37,55 @@ This is sample JWS API for flask framework.
 
 3. Create user
 
+|METHOD|             url                 | required fields|headers|description|
+  |------|---------------------------------|----------------| --- |---| 
+| POST | http://127.0.0.1:5000/register  | username, email, password| None|Create user| 
+| POST | http://127.0.0.1:5000/login     | username, password| None |Login via username and password|
+| POST | http://127.0.0.1:5000/login     | email, password| None| Login via email and password|
+| GET  | http://127.0.0.1:5000/profile/<user-id> | None | None| Get user info |
+| PUT  | http://127.0.0.1:5000/profile/ | username or email | token|Edit my profile (auth token required) |
 
-  |METHOD|             url                 | required fields|description|
-  |------|---------------------------------|----------------|---| 
-  | POST | http://127.0.0.1:5000/register  | username, email, password| Create user| 
-  | POST | http://127.0.0.1:5000/login     | username, password| Login via username and password|
-  | POST | http://127.0.0.1:5000/login     | email, password| Login via email and password|
-  | GET  | http://127.0.0.1:5000/profile/<user-id> | None | Get user info |
-  | PUT  | http://127.0.0.1:5000/profile/ | username or email | Edit my profile (auth token required) |
+<a name="file-sturcture"></a>
+
+## File Structure
+
+```
+Task1
+└── project                   # project packge
+    ├── __init__.py           # Config flask app 
+    ├── Validators.py         # Validator for email, username and password
+    ├── User
+    │    ├── __init__.py
+    │    ├── tests.py         # unittest for user model
+    │    ├── models.py        # User model
+    │    └── api
+    │        ├── __init__.py  
+    │        ├── tests.py     # API test for API user
+    │        ├── urls.py      # API urls for API user
+    │        └── views.py     # API Views
+    │
+    ├── README.ME             # file to help setup
+    ├── db.sqlite3            # Project database
+    ├── db.sqlite3_test       # Test database
+    ├── .env                  # Private varables 
+    ├── .env.template         # Template for .env
+    ├── requirements.txt      # Packages that are required
+    ├── manage.py             # File to manage flask
+    ├── config.py             # Default config 
+    └── env                   # Python enviroment
+```
+
+- [X] Start and set flask.
+- [X] Create user model.
+- [X] Create user views and urls.
+- [X] Add test.
+- [X] Add password, email and username validator.
+- [ ] Add fields like birthday, last_login, image profile and phone_number.
+
+<a name="tests"></a>
+
+## Tests
+> To run flask tests run `./manage.py test`
 
 <a name="todo"></a>
 
