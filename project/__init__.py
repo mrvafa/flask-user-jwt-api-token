@@ -10,6 +10,7 @@ app_settings = os.getenv(
     'APP_SETTINGS',
     'config.DevelopmentConfig',
 )
+app.config.from_object('config.DevelopmentConfig')
 CORS(app)
 
 db = SQLAlchemy(app)
